@@ -10,17 +10,29 @@
 <script language="javascript" src="js/SplitEffect.js"></script>
 <script language="javascript" src="js/Splitter.js"></script>
 
-<script type="text/javascript">
-
-
-
-</script>
 
 </head>
 
 <body>
-	<div id="canvas">
+	<img src="images/xing.png"></img>
+	<br />
+	<div id="canvas" style="border:1px solid blue; width: 600px; height: 400px; margin: 0 auto 0 auto;">
 	</div>
+
+<script type="text/javascript">
+
+var i = 0;
+var imgs = new Array();
+imgs[i++] = "images/xing-sl.png"
+imgs[i++] = "images/xing-sr.png"
+imgs[i++] = "images/xing-x.png"
+
+var canvas = document.getElementById("canvas");
+var displayer = new Displayer(canvas, imgs);
+displayer.display();
+
+</script>
+
 </body>
 
 </html>
