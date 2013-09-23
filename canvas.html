@@ -9,6 +9,7 @@
 <script language="javascript" src="js/Partial.js"></script>
 <script language="javascript" src="js/SplitEffect.js"></script>
 <script language="javascript" src="js/Splitter.js"></script>
+<script language="javascript" src="js/drag&drop.js"></script>
 
 
 </head>
@@ -30,6 +31,8 @@ imgs[i++] = "images/xing-x.png"
 var canvas = document.getElementById("canvas");
 var displayer = new Displayer(canvas, imgs);
 displayer.display();
+
+addLoadListener(initDragNDrop);
 
 </script>
 
