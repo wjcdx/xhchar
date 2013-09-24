@@ -130,7 +130,7 @@ function mousemoveDragNDrop(event)
   target.style.left = event.pageX + target.differenceX + "px";
   target.style.top = event.pageY + target.differenceY + "px";
 	
-	displayer.adjust(target);
+	canvas.adjust(target);
 	
   stopDefaultAction(event);
 

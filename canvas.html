@@ -3,14 +3,35 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
+<script language="javascript" src="js/drag&drop.js"></script>
+<script language="javascript" src="js/canvas.js"></script>
 <script language="javascript" src="js/CombineEffect.js"></script>
 <script language="javascript" src="js/Combiner.js"></script>
 <script language="javascript" src="js/Displayer.js"></script>
 <script language="javascript" src="js/Partial.js"></script>
 <script language="javascript" src="js/SplitEffect.js"></script>
 <script language="javascript" src="js/Splitter.js"></script>
-<script language="javascript" src="js/drag&drop.js"></script>
+<script language="javascript" src="js/UiElement.js"></script>
 
+
+<script type="text/javascript">
+
+function getImageUiE(src)
+{
+		var img = document.createElement("img");
+		img.src = src;
+		return new UiElement(img, img.height, img.width);
+}
+
+var i = 0;
+var Partials = new Array();
+Partials[i++] = new Partial('', getImageUiE("images/xing-sl.png"));
+Partials[i++] = new Partial('', getImageUiE("images/xing-sr.png"));
+Partials[i++] = new Partial('', getImageUiE("images/xing-x.png"));
+
+//addLoadListener(initDragNDrop);
+
+</script>
 
 </head>
 
@@ -22,17 +43,11 @@
 
 <script type="text/javascript">
 
-var i = 0;
-var imgs = new Array();
-imgs[i++] = "images/xing-sl.png"
-imgs[i++] = "images/xing-sr.png"
-imgs[i++] = "images/xing-x.png"
+var canvas = new Canvas(document.getElementById("canvas"));
+canvas.paint(Partials);
 
-var canvas = document.getElementById("canvas");
-var displayer = new Displayer(canvas, imgs);
-displayer.display();
-
-addLoadListener(initDragNDrop);
+//var displayer = new Displayer(canvas, Partials);
+//displayer.display();
 
 </script>
 
