@@ -29,8 +29,6 @@ Partials[i++] = new Partial('', getImageUiE("images/xing-sl.png"));
 Partials[i++] = new Partial('', getImageUiE("images/xing-sr.png"));
 Partials[i++] = new Partial('', getImageUiE("images/xing-x.png"));
 
-//addLoadListener(initDragNDrop);
-
 </script>
 
 </head>
@@ -44,10 +42,8 @@ Partials[i++] = new Partial('', getImageUiE("images/xing-x.png"));
 <script type="text/javascript">
 
 var canvas = new Canvas(document.getElementById("canvas"));
+canvas.decorate();
 canvas.paint(Partials);
-
-//var displayer = new Displayer(canvas, Partials);
-//displayer.display();
 
 </script>
 
