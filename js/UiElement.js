@@ -48,4 +48,16 @@ UiElement.prototype.collisionWith = function(target)
 		return (xc && yc);
 }
 
+UiElement.prototype.hasUI = function(target)
+{
+	if (this.uie.src == target.src)
+		return true;
+	return false;
+}
+
+UiElement.prototype.initUiE = function(uie)
+{
+	this.uie.style.top = uie.uie.style.top;
+	this.uie.style.left = uie.uie.style.left;
+}
 

@@ -4,7 +4,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 <script language="javascript" src="js/drag&drop.js"></script>
-<script language="javascript" src="js/canvas.js"></script>
 <script language="javascript" src="js/CombineEffect.js"></script>
 <script language="javascript" src="js/Combiner.js"></script>
 <script language="javascript" src="js/Displayer.js"></script>
@@ -12,6 +11,8 @@
 <script language="javascript" src="js/SplitEffect.js"></script>
 <script language="javascript" src="js/Splitter.js"></script>
 <script language="javascript" src="js/UiElement.js"></script>
+<script language="javascript" src="js/PartialManager.js"></script>
+<script language="javascript" src="js/canvas.js"></script>
 
 
 <script type="text/javascript">
@@ -25,9 +26,13 @@ function getImageUiE(src)
 
 var i = 0;
 var Partials = new Array();
-Partials[i++] = new Partial('', getImageUiE("images/xing-sl.png"));
-Partials[i++] = new Partial('', getImageUiE("images/xing-sr.png"));
-Partials[i++] = new Partial('', getImageUiE("images/xing-x.png"));
+Partials[i++] = new Partial('1', 2, getImageUiE("images/xing.png"));
+Partials[i++] = new Partial('1.1', 2, getImageUiE("images/xing-s.png"));
+Partials[i++] = new Partial('1.1.1', 0, getImageUiE("images/xing-sl.png"));
+Partials[i++] = new Partial('1.1.2', 0, getImageUiE("images/xing-sr.png"));
+Partials[i++] = new Partial('1.2', 0, getImageUiE("images/xing-x.png"));
+
+var ptsMgr = new PartialManager(Partials);
 
 </script>
 
@@ -41,7 +46,7 @@ Partials[i++] = new Partial('', getImageUiE("images/xing-x.png"));
 
 <script type="text/javascript">
 
-var canvas = new Canvas(document.getElementById("canvas"), Partials);
+var canvas = new Canvas(document.getElementById("canvas"), ptsMgr.getLowestPartials());
 canvas.decorate();
 canvas.paint();
 
