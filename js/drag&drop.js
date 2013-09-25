@@ -130,7 +130,7 @@ function mousemoveDragNDrop(event)
   target.style.left = event.pageX + target.differenceX + "px";
   target.style.top = event.pageY + target.differenceY + "px";
 	
-	canvas.adjust(target);
+  canvas.adjust(target);
 	
   stopDefaultAction(event);
 
@@ -139,7 +139,23 @@ function mousemoveDragNDrop(event)
 
 function mouseupDragNDrop(event)
 {
-  mousemoveDragNDrop(event);
+  if (typeof event == "undefined")
+  {
+    event = window.event;
+  }
+
+  if (typeof event.pageX == "undefined")
+  {
+    event.pageX = event.clientX + getScrollingPosition()[0];
+    event.pageY = event.clientY + getScrollingPosition()[1];
+  }
+
+  var target = document.currentTarget;
+  target.style.left = event.pageX + target.differenceX + "px";
+  target.style.top = event.pageY + target.differenceY + "px";
+
+  canvas.adjust(target);
+  canvas.collisionDetect(target);
 
   detachEventListener(document, "mousemove", mousemoveDragNDrop, false);
   detachEventListener(document, "mouseup", mouseupDragNDrop, false);
