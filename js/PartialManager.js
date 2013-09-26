@@ -29,4 +29,26 @@ PartialManager.prototype.getPartial = function(index)
 	return null;
 }
 
+PartialManager.prototype.getPartialsOfLevel = function(level)
+{
+}
+
+PartialManager.prototype.getChildren = function(part)
+{
+	var parts = new Array();
+
+	if (part.chds == 0) {
+		return parts;
+	}
+
+	for (var i in this.partials) {
+
+		var p = this.partials[i];
+		if (p.level > part.level
+			&& p.getParentIndex() == part.index) {
+			parts.push(p);
+		}
+	}
+	return parts;
+}
 
