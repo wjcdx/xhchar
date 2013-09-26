@@ -3,8 +3,6 @@ function Canvas(canvas, partials)
 {
 		this.canvas = canvas;
 		this.partials = partials;
-
-		this.adjustLevel();
 }
 
 Canvas.prototype.decorate = function()
@@ -76,22 +74,20 @@ Canvas.prototype.eraseAll = function()
 	}
 }
 
-Canvas.prototype.drawPartial = function(part)
+Canvas.prototype.drawPartial = function(part, random)
 {
 	this.partials.push(part);
-	this.drawUiE(part.uie.uie);
+	if (random) {
+		this.randomDraw(part.uie.uie);
+	} else {
+		this.drawUiE(part.uie.uie);
+	}
 }
 
-Canvas.prototype.drawPartialRandom = function(part)
-{
-	this.partials.push(part);
-	this.randomDraw(part.uie.uie);
-}
-
-Canvas.prototype.drawPartials = function(parts)
+Canvas.prototype.drawPartials = function(parts, random)
 {
 	for (var i in parts) {
-		this.drawPartialRandom(parts[i]);
+		this.drawPartial(parts[i], random);
 	}
 }
 
@@ -144,22 +140,8 @@ Canvas.prototype.collisionDetect = function(target)
 
 		this.erasePartial(collee);
 		this.erasePartial(coller);
-		this.drawPartial(parent);
-
-		this.adjustLevel();
+		this.drawPartial(parent, false);
 	}
-}
-
-Canvas.prototype.adjustLevel = function()
-{
-	var level = 0;
-	for (var i in this.partials) {
-		var lvl = this.partials[i].level;
-		if (lvl > level) {
-			level = lvl;
-		}
-	}
-	this.level = level;
 }
 
 Canvas.prototype.splitOnce = function()
@@ -169,10 +151,9 @@ Canvas.prototype.splitOnce = function()
 		if (p.chds > 0) {
 			var chds = ptsMgr.getChildren(p);
 			this.erasePartial(p);
-			this.drawPartials(chds);
+			this.drawPartials(chds, true);
 		}
 	}
 }
-
 
 
