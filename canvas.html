@@ -47,9 +47,9 @@ var ptsMgr = new PartialManager(Partials);
 
 <script type="text/javascript">
 
-var canvas = new Canvas(document.getElementById("canvas"), ptsMgr.getLowestPartials());
+var canvas = new Canvas(document.getElementById("canvas"));
 canvas.decorate();
-canvas.paint();
+canvas.paint(ptsMgr.getLowestPartials());
 
 </script>
 

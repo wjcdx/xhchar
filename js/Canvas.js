@@ -1,61 +1,58 @@
 
-function Canvas(canvas, partials)
+function Canvas(canvas)
 {
 		this.canvas = canvas;
-		this.partials = partials;
+		this.partials = new Array();
 }
 
 Canvas.prototype.decorate = function()
 {
 }
 
-Canvas.prototype.drawUiE = function(uie)
+Canvas.prototype.drawUiE = function(uie, random)
 {
 		uie.style.position = "absolute";
 		uie.style.borderWidth = "1px";
 		uie.style.borderColor = "blue";
 		uie.style.borderStyle = "solid";
 
+		if (random) {
+			this.positionRandomize(uie);
+		}
 		this.adjust(uie);
 		this.canvas.appendChild(uie);
 }
 
-Canvas.prototype.randomDraw = function(uie)
+Canvas.prototype.positionRandomize = function(uie)
 {
-		var ch = parseInt(this.canvas.style.height);
-		var cw = parseInt(this.canvas.style.width);
+	var ch = parseInt(this.canvas.style.height);
+	var cw = parseInt(this.canvas.style.width);
 
-		var ih = uie.height;
-		var iw = uie.width;
+	var ih = uie.height;
+	var iw = uie.width;
 
-		var top = Math.round(Math.random() * ch);
-		var lft = Math.round(Math.random() * cw);
+	var top = Math.round(Math.random() * ch);
+	var lft = Math.round(Math.random() * cw);
 
-		uie.style.top = top + "px";
-		uie.style.left = lft + "px";
-		
-		this.drawUiE(uie);
+	uie.style.top = top + "px";
+	uie.style.left = lft + "px";
 }
 
-Canvas.prototype.paint = function()
+Canvas.prototype.paint = function(partials)
 {
-		for (var i in this.partials) {
-			this.randomDraw(this.partials[i].uie.uie);
-		}
+	this.drawPartials(partials, true);
 }
 
 
 Canvas.prototype.repaint = function()
 {
-		this.erase();
-		this.paint();
+	var parts = this.partials;
+	this.eraseAll();
+	this.paint(parts);
 }
 
-
-Canvas.prototype.erasePartial = function(part)
+Canvas.prototype.removePartial = function(part)
 {
-	this.canvas.removeChild(part.uie.uie);
-
 	var parts = new Array();
 	for (var i in this.partials) {
 		var p = this.partials[i];
@@ -66,6 +63,12 @@ Canvas.prototype.erasePartial = function(part)
 	this.partials = parts;
 }
 
+Canvas.prototype.erasePartial = function(part)
+{
+	this.canvas.removeChild(part.uie.uie);
+	this.removePartial(part);
+}
+
 Canvas.prototype.eraseAll = function()
 {
 	for (var i in this.partials) {
@@ -74,14 +77,15 @@ Canvas.prototype.eraseAll = function()
 	}
 }
 
-Canvas.prototype.drawPartial = function(part, random)
+Canvas.prototype.addPartial = function(part)
 {
 	this.partials.push(part);
-	if (random) {
-		this.randomDraw(part.uie.uie);
-	} else {
-		this.drawUiE(part.uie.uie);
-	}
+}
+
+Canvas.prototype.drawPartial = function(part, random)
+{
+	this.addPartial(part);
+	this.drawUiE(part.uie.uie, random);
 }
 
 Canvas.prototype.drawPartials = function(parts, random)
