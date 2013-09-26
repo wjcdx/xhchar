@@ -125,18 +125,18 @@ Canvas.prototype.adjust = function(uie)
 Canvas.prototype.collisionDetect = function(target)
 {
 	var coller = null, collee = null;
-	var collision = false;
+	var collision = 0;
 	for (var i in this.partials) {
 			var p = this.partials[i];
 			if (p.uie.collisionWith(target)) {
-				collision = true;
+				collision++;
 				collee = p;
 			} else if (p.uie.hasUI(target)) {
 				coller = p;
 			}
 	}
 
-	if (collision && collee.neighborTo(coller)) {
+	if (collision == 1 && collee.neighborTo(coller)) {
 		//var combiner = new Combiner();
 		//combiner.combine(collee, coller);
 		var parent = ptsMgr.getPartial(collee.getParentIndex());
