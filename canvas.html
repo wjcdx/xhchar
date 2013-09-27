@@ -7,6 +7,7 @@
 <script language="javascript" src="js/CombineEffect.js"></script>
 <script language="javascript" src="js/Combiner.js"></script>
 <script language="javascript" src="js/Displayer.js"></script>
+<script language="javascript" src="js/Character.js"></script>
 <script language="javascript" src="js/Partial.js"></script>
 <script language="javascript" src="js/SplitEffect.js"></script>
 <script language="javascript" src="js/Splitter.js"></script>
@@ -25,21 +26,34 @@ function getImageUiE(src)
 }
 
 var i = 0;
-var Partials = new Array();
-Partials[i++] = new Partial('1', 2, getImageUiE("images/fan/xing.png"));
-Partials[i++] = new Partial('1.1', 2, getImageUiE("images/fan/xing-s.png"));
-Partials[i++] = new Partial('1.1.1', 0, getImageUiE("images/fan/xing-sl.png"));
-Partials[i++] = new Partial('1.1.2', 0, getImageUiE("images/fan/xing-sr.png"));
-Partials[i++] = new Partial('1.2', 0, getImageUiE("images/fan/xing-x.png"));
+var cxing = new Character("1");
+cxing.partials[i++] = new Partial('1', 2, getImageUiE("images/xing/xing.png"));
+cxing.partials[i++] = new Partial('1.1', 2, getImageUiE("images/xing/xing-s.png"));
+cxing.partials[i++] = new Partial('1.1.1', 0, getImageUiE("images/xing/xing-sl.png"));
+cxing.partials[i++] = new Partial('1.1.2', 0, getImageUiE("images/xing/xing-sr.png"));
+cxing.partials[i++] = new Partial('1.2', 0, getImageUiE("images/xing/xing-x.png"));
 
-var ptsMgr = new PartialManager(Partials);
+i = 0;
+var cfan = new Character("2");
+cfan.partials[i++] = new Partial('2', 2, getImageUiE("images/fan/fan.png"));
+cfan.partials[i++] = new Partial('2.1', 3, getImageUiE("images/fan/fan-s.png"));
+cfan.partials[i++] = new Partial('2.1.1', 0, getImageUiE("images/fan/fan-sl.png"));
+cfan.partials[i++] = new Partial('2.1.2', 2, getImageUiE("images/fan/fan-sm.png"));
+cfan.partials[i++] = new Partial('2.1.2.1', 0, getImageUiE("images/fan/fan-sms.png"));
+cfan.partials[i++] = new Partial('2.1.2.2', 0, getImageUiE("images/fan/fan-smx.png"));
+cfan.partials[i++] = new Partial('2.1.3', 0, getImageUiE("images/fan/fan-sr.png"));
+cfan.partials[i++] = new Partial('2.2', 0, getImageUiE("images/fan/fan-x.png"));
+
+
+var ptsMgr = new PartialManager(cfan.partials);
 
 </script>
 
 </head>
 
 <body>
-	<img src="images/xing.png"></img>
+	<!-- img src="images/xing/xing.png"></img -->
+	<img src="images/fan/fan.png"></img>
 	<br />
 	<div id="canvas" style="border:1px solid blue; width: 600px; height: 400px; margin: 0 auto 0 auto; position: relative;">
 	</div>
