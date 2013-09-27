@@ -16,8 +16,10 @@ UiElement.prototype.attachEventListener = function()
 		attachEventListener(this.uie, "mousedown", mousedownDragNDrop, false);
 }
 
-UiElement.prototype.collisionWith = function(target)
+UiElement.prototype.collisionWith = function(uie)
 {
+		var target = uie.uie;
+
 		var tx = parseInt(target.style.left);
 		var ty = parseInt(target.style.top);
 		var th = target.height;

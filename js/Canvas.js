@@ -69,11 +69,17 @@ Canvas.prototype.erasePartial = function(part)
 	this.removePartial(part);
 }
 
+Canvas.prototype.erasePartials = function(partials)
+{
+	for (var i in partials) {
+		this.erasePartial(partials[i]);
+	}
+}
+
 Canvas.prototype.eraseAll = function()
 {
 	for (var i in this.partials) {
-		var p = this.partials[i];
-		this.erasePartial(p);
+		this.erasePartial(this.partials[i]);
 	}
 }
 
@@ -124,28 +130,45 @@ Canvas.prototype.adjust = function(uie)
 
 Canvas.prototype.collisionDetect = function(target)
 {
-	var coller = null, collee = null;
-	var collision = 0;
+	var collers = new Array();
+	var parents = new Array();
+
 	for (var i in this.partials) {
-			var p = this.partials[i];
-			if (p.uie.collisionWith(target)) {
-				collision++;
-				collee = p;
-			} else if (p.uie.hasUI(target)) {
-				coller = p;
+		this.partials[i].collision = false;
+	}
+
+	for (var i in this.partials) {
+		var pi = this.partials[i];
+		for (var j = this.partials.length - 1; j > i; j--) {
+			var pj = this.partials[j];
+			if (pi.uie.collisionWith(pj.uie)) {
+				pi.collision = true;
+				pj.collision = true;
 			}
+		}
 	}
 
-	if (collision == 1 && collee.neighborTo(coller)) {
-		//var combiner = new Combiner();
-		//combiner.combine(collee, coller);
-		var parent = ptsMgr.getPartial(collee.getParentIndex());
-		parent.initUiE(collee);
-
-		this.erasePartial(collee);
-		this.erasePartial(coller);
-		this.drawPartial(parent, false);
+	for (var i in this.partials) {
+		var p = this.partials[i];
+		if (p.collision) {
+			collers.push(p);
+			var parent = ptsMgr.getPartial(p.getParentIndex());
+			ptsMgr.addPartialInto(parent, parents);
+		}
 	}
+
+	if (parents.length != 1) {
+		return;
+	}
+
+	var parent = parents[0];
+	if (parent.chds != collers.length) {
+		return;
+	}
+
+	parent.initUiE(collers[0]);
+	this.erasePartials(collers);
+	this.drawPartial(parent, false);
 }
 
 Canvas.prototype.splitOnce = function()

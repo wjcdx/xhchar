@@ -6,6 +6,8 @@ function Partial(index, chds, uie)
 
 		this.level = index.split('.').length;
 		this.chds = chds;
+
+		this.collision = false;
 }
 
 Partial.prototype.neighborTo = function(partial)

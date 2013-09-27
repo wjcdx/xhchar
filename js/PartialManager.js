@@ -52,3 +52,14 @@ PartialManager.prototype.getChildren = function(part)
 	return parts;
 }
 
+PartialManager.prototype.addPartialInto = function(part, partials)
+{
+	for (var i in partials) {
+		if (part.index == partials[i].index) {
+			return;
+		}
+	}
+	partials.push(part);
+}
+
+
